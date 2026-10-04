@@ -1,655 +1,335 @@
 --[[
-    🦖 DINO HUB 🦖
-    Key: teste
+    ⚡ AUTO KOKUSEN - MÓDULO EXTRA ⚡
+    Jujutsu Shenanigans / JJK
 ]]
 
 -- ==================== CONFIGURAÇÕES ====================
-local KEY_SISTEMA = "teste"
 local COR_NEON = Color3.fromRGB(0, 255, 120)
 local COR_FUNDO = Color3.fromRGB(15, 15, 15)
 local COR_FUNDO_2 = Color3.fromRGB(25, 30, 25)
 
 -- ==================== SERVIÇOS ====================
 local Players = game:GetService("Players")
-local UIS = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
-local TweenService = game:GetService("TweenService")
 local CoreGui = game:GetService("CoreGui")
+local TweenService = game:GetService("TweenService")
+local UIS = game:GetService("UserInputService")
 local LP = Players.LocalPlayer
 
--- ==================== KEY SYSTEM ====================
-local function VerificarKey()
-    local keyGui = Instance.new("ScreenGui")
-    keyGui.Name = "DinoKey"
-    keyGui.ResetOnSpawn = false
-    keyGui.Parent = CoreGui
-
-    local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0, 380, 0, 220)
-    frame.Position = UDim2.new(0.5, -190, 0.5, -110)
-    frame.BackgroundColor3 = COR_FUNDO
-    frame.BorderSizePixel = 0
-    frame.Parent = keyGui
-
-    local corner = Instance.new("UICorner")
-    corner.CornerRadius = UDim.new(0, 14)
-    corner.Parent = frame
-
-    local stroke = Instance.new("UIStroke")
-    stroke.Color = COR_NEON
-    stroke.Thickness = 2
-    stroke.Parent = frame
-
-    local title = Instance.new("TextLabel")
-    title.Size = UDim2.new(1, 0, 0, 45)
-    title.Position = UDim2.new(0, 0, 0, 15)
-    title.BackgroundTransparency = 1
-    title.Text = "🦖 DINO HUB | KEY"
-    title.TextColor3 = COR_NEON
-    title.Font = Enum.Font.GothamBold
-    title.TextSize = 22
-    title.Parent = frame
-
-    local desc = Instance.new("TextLabel")
-    desc.Size = UDim2.new(1, 0, 0, 20)
-    desc.Position = UDim2.new(0, 0, 0, 60)
-    desc.BackgroundTransparency = 1
-    desc.Text = "Digite a key para continuar"
-    desc.TextColor3 = Color3.fromRGB(180, 180, 180)
-    desc.Font = Enum.Font.Gotham
-    desc.TextSize = 13
-    desc.Parent = frame
-
-    local box = Instance.new("TextBox")
-    box.Size = UDim2.new(1, -50, 0, 40)
-    box.Position = UDim2.new(0, 25, 0, 95)
-    box.BackgroundColor3 = COR_FUNDO_2
-    box.BorderSizePixel = 0
-    box.Text = ""
-    box.PlaceholderText = "Digite sua key aqui..."
-    box.TextColor3 = Color3.fromRGB(255, 255, 255)
-    box.PlaceholderColor3 = Color3.fromRGB(120, 120, 120)
-    box.Font = Enum.Font.Gotham
-    box.TextSize = 14
-    box.Parent = frame
-
-    local boxCorner = Instance.new("UICorner")
-    boxCorner.CornerRadius = UDim.new(0, 10)
-    boxCorner.Parent = box
-
-    local boxStroke = Instance.new("UIStroke")
-    boxStroke.Color = COR_NEON
-    boxStroke.Thickness = 1.5
-    boxStroke.Parent = box
-
-    local btn = Instance.new("TextButton")
-    btn.Size = UDim2.new(1, -50, 0, 40)
-    btn.Position = UDim2.new(0, 25, 0, 150)
-    btn.BackgroundColor3 = COR_NEON
-    btn.BorderSizePixel = 0
-    btn.Text = "VERIFICAR"
-    btn.TextColor3 = COR_FUNDO
-    btn.Font = Enum.Font.GothamBold
-    btn.TextSize = 16
-    btn.Parent = frame
-
-    local btnCorner = Instance.new("UICorner")
-    btnCorner.CornerRadius = UDim.new(0, 10)
-    btnCorner.Parent = btn
-
-    local ok = false
-    btn.MouseButton1Click:Connect(function()
-        if box.Text == KEY_SISTEMA then
-            btn.Text = "✅ KEY CORRETA!"
-            btn.BackgroundColor3 = Color3.fromRGB(0, 200, 100)
-            task.wait(0.8)
-            keyGui:Destroy()
-            ok = true
-        else
-            btn.Text = "❌ KEY ERRADA!"
-            btn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
-            task.wait(1)
-            btn.Text = "VERIFICAR"
-            btn.BackgroundColor3 = COR_NEON
-        end
-    end)
-    repeat task.wait() until ok
-end
-VerificarKey()-- ==================== HUB UI ====================
-local hubGui = Instance.new("ScreenGui")
-hubGui.Name = "DinoHub"
-hubGui.ResetOnSpawn = false
-hubGui.Parent = CoreGui
-
-local main = Instance.new("Frame")
-main.Size = UDim2.new(0, 320, 0, 380)
-main.Position = UDim2.new(0, 30, 0.5, -190)
-main.BackgroundColor3 = COR_FUNDO
-main.BorderSizePixel = 0
-main.Active = true
-main.Draggable = true
-main.Parent = hubGui
-
-local mainCorner = Instance.new("UICorner")
-mainCorner.CornerRadius = UDim.new(0, 16)
-mainCorner.Parent = main
-
-local mainStroke = Instance.new("UIStroke")
-mainStroke.Color = COR_NEON
-mainStroke.Thickness = 2
-mainStroke.Parent = main
-
--- Barra Superior
-local topBar = Instance.new("Frame")
-topBar.Size = UDim2.new(1, 0, 0, 42)
-topBar.BackgroundColor3 = COR_FUNDO_2
-topBar.BorderSizePixel = 0
-topBar.Parent = main
-
-local topCorner = Instance.new("UICorner")
-topCorner.CornerRadius = UDim.new(0, 16)
-topCorner.Parent = topBar
-
-local topFix = Instance.new("Frame")
-topFix.Size = UDim2.new(1, 0, 0, 20)
-topFix.Position = UDim2.new(0, 0, 1, -20)
-topFix.BackgroundColor3 = COR_FUNDO_2
-topFix.BorderSizePixel = 0
-topFix.Parent = topBar
-
--- Título
-local titulo = Instance.new("TextLabel")
-titulo.Size = UDim2.new(1, -100, 1, 0)
-titulo.Position = UDim2.new(0, 40, 0, 0)
-titulo.BackgroundTransparency = 1
-titulo.Text = "🦖 DINO HUB"
-titulo.TextColor3 = COR_NEON
-titulo.Font = Enum.Font.GothamBold
-titulo.TextSize = 18
-titulo.TextXAlignment = Enum.TextXAlignment.Left
-titulo.Parent = topBar
-
--- Botão Minimizar (-)
-local minBtn = Instance.new("TextButton")
-minBtn.Size = UDim2.new(0, 30, 0, 30)
-minBtn.Position = UDim2.new(0, 6, 0, 6)
-minBtn.BackgroundColor3 = COR_NEON
-minBtn.Text = "-"
-minBtn.TextColor3 = COR_FUNDO
-minBtn.Font = Enum.Font.GothamBold
-minBtn.TextSize = 22
-minBtn.BorderSizePixel = 0
-minBtn.Parent = topBar
-local minCorner = Instance.new("UICorner") minCorner.CornerRadius = UDim.new(0, 8) minCorner.Parent = minBtn
-
--- Botão Cadeado
-local lockBtn = Instance.new("TextButton")
-lockBtn.Size = UDim2.new(0, 30, 0, 30)
-lockBtn.Position = UDim2.new(1, -36, 0, 6)
-lockBtn.BackgroundColor3 = COR_NEON
-lockBtn.Text = "🔓"
-lockBtn.TextColor3 = COR_FUNDO
-lockBtn.Font = Enum.Font.GothamBold
-lockBtn.TextSize = 16
-lockBtn.BorderSizePixel = 0
-lockBtn.Parent = topBar
-local lockCorner = Instance.new("UICorner") lockCorner.CornerRadius = UDim.new(0, 8) lockCorner.Parent = lockBtn
-
--- ==================== SISTEMA DE ABAS ====================
-local tabFrame = Instance.new("Frame")
-tabFrame.Size = UDim2.new(1, -20, 0, 32)
-tabFrame.Position = UDim2.new(0, 10, 0, 48)
-tabFrame.BackgroundTransparency = 1
-tabFrame.Parent = main
-
-local mainTab = Instance.new("TextButton")
-mainTab.Size = UDim2.new(0.5, -4, 1, 0)
-mainTab.Position = UDim2.new(0, 0, 0, 0)
-mainTab.BackgroundColor3 = COR_NEON
-mainTab.Text = "MAIN"
-mainTab.TextColor3 = COR_FUNDO
-mainTab.Font = Enum.Font.GothamBold
-mainTab.TextSize = 14
-mainTab.BorderSizePixel = 0
-mainTab.AutoButtonColor = false
-mainTab.Parent = tabFrame
-local mtc = Instance.new("UICorner") mtc.CornerRadius = UDim.new(0, 8) mtc.Parent = mainTab
-
-local extrasTab = Instance.new("TextButton")
-extrasTab.Size = UDim2.new(0.5, -4, 1, 0)
-extrasTab.Position = UDim2.new(0.5, 4, 0, 0)
-extrasTab.BackgroundColor3 = COR_FUNDO_2
-extrasTab.Text = "EXTRAS"
-extrasTab.TextColor3 = Color3.fromRGB(180, 180, 180)
-extrasTab.Font = Enum.Font.GothamBold
-extrasTab.TextSize = 14
-extrasTab.BorderSizePixel = 0
-extrasTab.AutoButtonColor = false
-extrasTab.Parent = tabFrame
-local etc = Instance.new("UICorner") etc.CornerRadius = UDim.new(0, 8) etc.Parent = extrasTab
-
--- ==================== SCROLLS ====================
-local function CriarScroll(posY)
-    local s = Instance.new("ScrollingFrame")
-    s.Size = UDim2.new(1, -20, 1, -96)
-    s.Position = UDim2.new(0, 10, 0, posY)
-    s.BackgroundTransparency = 1
-    s.BorderSizePixel = 0
-    s.ScrollBarThickness = 4
-    s.ScrollBarImageColor3 = COR_NEON
-    s.CanvasSize = UDim2.new(0, 0, 0, 0)
-    s.AutomaticCanvasSize = Enum.AutomaticSize.Y
-    s.Parent = main
-
-    local l = Instance.new("UIListLayout")
-    l.Padding = UDim.new(0, 8)
-    l.SortOrder = Enum.SortOrder.LayoutOrder
-    l.Parent = s
-    return s
-end
-
-local mainScroll = CriarScroll(88)
-local extrasScroll = CriarScroll(88)
-extrasScroll.Visible = false
-
--- Lógica das Abas
-mainTab.MouseButton1Click:Connect(function()
-    mainScroll.Visible = true
-    extrasScroll.Visible = false
-    mainTab.BackgroundColor3 = COR_NEON
-    mainTab.TextColor3 = COR_FUNDO
-    extrasTab.BackgroundColor3 = COR_FUNDO_2
-    extrasTab.TextColor3 = Color3.fromRGB(180, 180, 180)
-end)
-
-extrasTab.MouseButton1Click:Connect(function()
-    mainScroll.Visible = false
-    extrasScroll.Visible = true
-    extrasTab.BackgroundColor3 = COR_NEON
-    extrasTab.TextColor3 = COR_FUNDO
-    mainTab.BackgroundColor3 = COR_FUNDO_2
-    mainTab.TextColor3 = Color3.fromRGB(180, 180, 180)
-end)
-
--- ==================== FUNÇÃO CRIAR BOTÃO ====================
-local function CriarBotao(parent, nome, callback)
-    local btn = Instance.new("TextButton")
-    btn.Size = UDim2.new(1, -8, 0, 40)
-    btn.BackgroundColor3 = COR_FUNDO_2
-    btn.Text = "  " .. nome
-    btn.TextColor3 = Color3.fromRGB(220, 220, 220)
-    btn.Font = Enum.Font.GothamMedium
-    btn.TextSize = 14
-    btn.TextXAlignment = Enum.TextXAlignment.Left
-    btn.BorderSizePixel = 0
-    btn.AutoButtonColor = false
-    btn.Parent = parent
-
-    local c = Instance.new("UICorner") c.CornerRadius = UDim.new(0, 10) c.Parent = btn
-    local s = Instance.new("UIStroke") s.Color = COR_NEON s.Thickness = 1 s.Transparency = 0.5 s.Parent = btn
-
-    local ativo = false
-    btn.MouseEnter:Connect(function() TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(35, 45, 35)}):Play() end)
-    btn.MouseLeave:Connect(function() if not ativo then TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = COR_FUNDO_2}):Play() end end)
-
-    btn.MouseButton1Click:Connect(function()
-        ativo = not ativo
-        if ativo then
-            btn.BackgroundColor3 = COR_NEON
-            btn.TextColor3 = COR_FUNDO
-            btn.Text = "  ● " .. nome
-        else
-            btn.BackgroundColor3 = COR_FUNDO_2
-            btn.TextColor3 = Color3.fromRGB(220, 220, 220)
-            btn.Text = "  " .. nome
-        end
-        if callback then callback(ativo) end
-    end)
-    return btn
-end
-
--- Minimizar
-local minTab = nil
-minBtn.MouseButton1Click:Connect(function()
-    main.Visible = false
-    minTab = Instance.new("TextButton")
-    minTab.Size = UDim2.new(0, 50, 0, 50)
-    minTab.Position = UDim2.new(0, 30, 0.5, -25)
-    minTab.BackgroundColor3 = COR_FUNDO
-    minTab.Text = "+"
-    minTab.TextColor3 = COR_NEON
-    minTab.Font = Enum.Font.GothamBold
-    minTab.TextSize = 28
-    minTab.BorderSizePixel = 0
-    minTab.Active = true
-    minTab.Draggable = true
-    minTab.Parent = hubGui
-    local mc = Instance.new("UICorner") mc.CornerRadius = UDim.new(0, 12) mc.Parent = minTab
-    local ms = Instance.new("UIStroke") ms.Color = COR_NEON ms.Thickness = 2 ms.Parent = minTab
-    minTab.MouseButton1Click:Connect(function()
-        main.Visible = true
-        minTab:Destroy()
-    end)
-end)
-
--- Cadeado
-lockBtn.MouseButton1Click:Connect(function()
-    if main.Draggable then
-        main.Draggable = false
-        lockBtn.Text = "🔒"
-    else
-        main.Draggable = true
-        lockBtn.Text = "🔓"
-    end
-end)-- ==================== GOJO 0.2 ====================
-local gojoActive = false
-local gojoConn = nil
-
-CriarBotao(mainScroll, "Gojo 0.2 (Teleport Kill)", function(ativo)
-    gojoActive = ativo
-    if ativo then
-        gojoConn = task.spawn(function()
-            while gojoActive do
-                local char = LP.Character
-                local root = char and char:FindFirstChild("HumanoidRootPart")
-                if root then
-                    for _, p in ipairs(Players:GetPlayers()) do
-                        if not gojoActive then break end
-                        if p ~= LP and p.Character then
-                            local tr  = p.Character:FindFirstChild("HumanoidRootPart")
-                            local hum = p.Character:FindFirstChildOfClass("Humanoid")
-                            if tr and hum and hum.Health > 0 then
-                                root.CFrame = tr.CFrame
-                                RunService.Heartbeat:Wait()
-                            end
-                        end
-                    end
-                end
-                RunService.Heartbeat:Wait()
-            end
-        end)
-    else
-        if gojoConn then task.cancel(gojoConn); gojoConn = nil end
-    end
-end)
-
--- ==================== SISTEMA FLY (MOBILE) ====================
-local flyAtivo = false
-local flyConn = nil
-local direcoes = {cima=false, baixo=false, esq=false, dir=false, subir=false, descer=false}
-local flyGuiRefs = {}
-
-local function DestruirControlesFly()
-    for _, gui in pairs(flyGuiRefs) do pcall(function() gui:Destroy() end) end
-    flyGuiRefs = {}
-end
-
-local function CriarControlesFly()
-    local sg = Instance.new("ScreenGui")
-    sg.Name = "DinoFlyControls"
-    sg.ResetOnSpawn = false
-    sg.Parent = CoreGui
-    table.insert(flyGuiRefs, sg)
-
-    local screenH = workspace.CurrentCamera.ViewportSize.Y
-
-    local function CriarSeta(pos, texto, dirNome)
-        local b = Instance.new("TextButton")
-        b.Size = UDim2.new(0, 60, 0, 60)
-        b.Position = pos
-        b.BackgroundColor3 = COR_FUNDO
-        b.BackgroundTransparency = 0.2
-        b.Text = texto
-        b.TextColor3 = COR_NEON
-        b.Font = Enum.Font.GothamBold
-        b.TextSize = 26
-        b.BorderSizePixel = 0
-        b.Parent = sg
-        b.AutoButtonColor = false
-        local c = Instance.new("UICorner") c.CornerRadius = UDim.new(0, 12) c.Parent = b
-        local s = Instance.new("UIStroke") s.Color = COR_NEON s.Thickness = 2 s.Parent = b
-
-        b.MouseButton1Down:Connect(function() direcoes[dirNome] = true; b.BackgroundColor3 = COR_NEON; b.TextColor3 = COR_FUNDO end)
-        b.MouseButton1Up:Connect(function() direcoes[dirNome] = false; b.BackgroundColor3 = COR_FUNDO; b.TextColor3 = COR_NEON end)
-        b.MouseLeave:Connect(function() direcoes[dirNome] = false; b.BackgroundColor3 = COR_FUNDO; b.TextColor3 = COR_NEON end)
-    end
-
-    CriarSeta(UDim2.new(0, 85, 0, screenH - 220), "▲", "cima")
-    CriarSeta(UDim2.new(0, 20, 0, screenH - 155), "◄", "esq")
-    CriarSeta(UDim2.new(0, 85, 0, screenH - 90), "▼", "baixo")
-    CriarSeta(UDim2.new(0, 150, 0, screenH - 155), "►", "dir")
-    CriarSeta(UDim2.new(1, -80, 0, screenH - 220), "⬆", "subir")
-    CriarSeta(UDim2.new(1, -80, 0, screenH - 90), "⬇", "descer")
-end
-
-CriarBotao(mainScroll, "Fly (Mobile Controls)", function(ativo)
-    flyAtivo = ativo
-    if ativo then
-        CriarControlesFly()
-        flyConn = RunService.RenderStepped:Connect(function()
-            if not flyAtivo then return end
-            local char = LP.Character
-            if not char then return end
-            local root = char:FindFirstChild("HumanoidRootPart")
-            local hum = char:FindFirstChildOfClass("Humanoid")
-            if not root or not hum then return end
-            hum.PlatformStand = true
-            local cam = workspace.CurrentCamera
-            local dir = Vector3.new(0, 0, 0)
-            if direcoes.cima then dir += cam.CFrame.LookVector end
-            if direcoes.baixo then dir -= cam.CFrame.LookVector end
-            if direcoes.esq then dir -= cam.CFrame.RightVector end
-            if direcoes.dir then dir += cam.CFrame.RightVector end
-            if direcoes.subir then dir += Vector3.new(0, 1, 0) end
-            if direcoes.descer then dir -= Vector3.new(0, 1, 0) end
-            root.Velocity = dir.Magnitude > 0 and (dir.Unit * 120) or Vector3.new(0, 0, 0)
-        end)
-    else
-        if flyConn then flyConn:Disconnect(); flyConn = nil end
-        local char = LP.Character
-        if char then
-            local hum = char:FindFirstChildOfClass("Humanoid")
-            if hum then hum.PlatformStand = false end
-            local root = char:FindFirstChild("HumanoidRootPart")
-            if root then root.Velocity = Vector3.new(0, 0, 0) end
-        end
-        for k, _ in pairs(direcoes) do direcoes[k] = false end
-        DestruirControlesFly()
-    end
-end)-- ==================== BYPASS ====================
-local bypassActive = false
-local bypassConn = nil
-
-local function ExecutarBypass()
-    local char = LP.Character or LP.CharacterAdded:Wait()
-    local root = char:WaitForChild("HumanoidRootPart", 5)
-    if not root then return false end
-
-    local sucesso = false
-    pcall(function()
-        local jogadores = Players:GetPlayers()
-        for i = #jogadores, 1, -1 do
-            if jogadores[i] == LP then table.remove(jogadores, i) end
-        end
-        if #jogadores > 0 then
-            local alvo = jogadores[math.random(1, #jogadores)]
-            if alvo and alvo.Character and alvo.Character:FindFirstChild("HumanoidRootPart") then
-                local posAlvo = alvo.Character.HumanoidRootPart.Position + Vector3.new(0, 3, 0)
-                root.CFrame = CFrame.new(posAlvo)
-                task.wait(0.5)
-                if root and root.Parent and (root.Position - posAlvo).Magnitude < 25 then
-                    sucesso = true
-                end
+-- ==================== LOCALIZA O DINO HUB ====================
+local hubGui, scrollFrame = nil, nil
+for _, gui in ipairs(CoreGui:GetChildren()) do
+    if gui.Name == "DinoHub" then
+        hubGui = gui
+        for _, desc in ipairs(gui:GetDescendants()) do
+            if desc:IsA("ScrollingFrame") then
+                scrollFrame = desc
+                break
             end
         end
-    end)
-    return sucesso
-end
-
-local function rotaDoVoid()
-    pcall(function()
-        local char = LP.Character
-        local root = char and char:FindFirstChild("HumanoidRootPart")
-        local hum  = char and char:FindFirstChildOfClass("Humanoid")
-        if not root or not hum then return end
-        hum.PlatformStand = true
-        local bv = Instance.new("BodyVelocity")
-        bv.MaxForce = Vector3.new(9e6, 9e6, 9e6)
-        bv.Velocity = Vector3.new(0, 150, 0)
-        bv.Parent = root
-        task.wait(1.3)
-        bv.Velocity = Vector3.new(-300, 0, 0)
-        task.wait(2.4)
-        bv.Velocity = Vector3.zero
-        hum.PlatformStand = false
-        bv:Destroy()
-    end)
-end
-
-CriarBotao(mainScroll, "Auto Bypass", function(ativo)
-    bypassActive = ativo
-    if ativo then
-        bypassConn = task.spawn(function()
-            while bypassActive do
-                local sucesso = ExecutarBypass()
-                if sucesso then
-                    bypassActive = false
-                    print("✅ Bypass FUNCIONOU!")
-                    break
-                else
-                    rotaDoVoid()
-                    task.wait(3)
-                end
-            end
-            bypassActive = false
-        end)
-    else
-        if bypassConn then task.cancel(bypassConn); bypassConn = nil end
+        break
     end
-end)
+end
 
--- ==================== FOCUS ====================
-local focusActive = false
-local focusConn = nil
-local focusTarget = nil
+if not hubGui or not scrollFrame then
+    warn("❌ Dino Hub não encontrado! Carregue o Dino Hub primeiro.")
+    return
+end
 
-local function findNearest()
-    local c = LP.Character
-    local r = c and c:FindFirstChild("HumanoidRootPart")
-    if not r then return nil end
-    local best, bestD = nil, math.huge
+print("✅ Dino Hub encontrado! Iniciando Auto Kokusen...")
+-- ==================== VARIÁVEIS GLOBAIS ====================
+local kokusenAtivo = false
+local loopKokusen = nil
+local kokusenRange = 25          -- Alcance em studs
+local kokusenDelay = 0.15        -- Delay entre cada combo
+local cachedRemotes = nil
+
+-- ==================== DETECÇÃO DE ALVO ====================
+local function AcharAlvo(range)
+    local char = LP.Character
+    local myRoot = char and char:FindFirstChild("HumanoidRootPart")
+    if not myRoot then return nil end
+
+    local closest, dist = nil, range or kokusenRange
     for _, p in ipairs(Players:GetPlayers()) do
         if p ~= LP and p.Character then
-            local tr = p.Character:FindFirstChild("HumanoidRootPart")
+            local hrp = p.Character:FindFirstChild("HumanoidRootPart")
             local hum = p.Character:FindFirstChildOfClass("Humanoid")
-            if tr and hum and hum.Health > 0 then
-                local d = (tr.Position - r.Position).Magnitude
-                if d < bestD then bestD = d; best = p end
+            if hrp and hum and hum.Health > 0 then
+                local d = (hrp.Position - myRoot.Position).Magnitude
+                if d < dist then
+                    dist = d
+                    closest = p
+                end
             end
         end
     end
-    return best
+    return closest
 end
 
-local function stopFocus()
-    if focusConn then focusConn:Disconnect(); focusConn = nil end
+-- ==================== INPUT HELPERS ====================
+local function PressKey(key, hold)
+    pcall(function()
+        local vim = game:GetService("VirtualInputManager")
+        vim:SendKeyEvent(true, key, false, game)
+        task.wait(hold or 0.03)
+        vim:SendKeyEvent(false, key, false, game)
+    end)
+end
+
+local function ClickMouse()
+    pcall(function()
+        local vim = game:GetService("VirtualInputManager")
+        vim:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+        task.wait(0.02)
+        vim:SendMouseButtonEvent(0, 0, 0, false, game, 1)
+    end)
+end
+
+-- ==================== PROCURA REMOTES DE KOKUSEN ====================
+local function AcharRemotesKokusen()
+    local remotes = {}
+    pcall(function()
+        for _, obj in ipairs(game:GetDescendants()) do
+            if obj:IsA("RemoteEvent") or obj:IsA("RemoteFunction") then
+                local n = string.lower(obj.Name)
+                if string.find(n, "kokusen") or string.find(n, "black")
+                or string.find(n, "flash") or string.find(n, "attack")
+                or string.find(n, "m1") or string.find(n, "combat")
+                or string.find(n, "punch") then
+                    table.insert(remotes, obj)
+                end
+            end
+        end
+    end)
+    return remotes
+end
+
+-- ==================== ATIVA ESTADO KOKUSEN ====================
+local function AtivarModoKokusen()
     local char = LP.Character
-    local hum = char and char:FindFirstChildOfClass("Humanoid")
-    if hum then hum.PlatformStand = false end
-    focusTarget = nil
-end
+    if not char then return end
 
-local function startFocus()
-    focusTarget = findNearest()
-    if not focusTarget then focusActive = false return end
-    local angle = 0
-    local radius = 6
-    local speed = 5
-    local heightOffset = 3
+    pcall(function()
+        char:SetAttribute("Kokusen", true)
+        char:SetAttribute("BlackFlash", true)
+        char:SetAttribute("AutoKokusen", true)
 
-    focusConn = RunService.Heartbeat:Connect(function(dt)
-        if not focusActive then return end
-        if not focusTarget or not focusTarget.Character or not focusTarget.Character.Parent then
-            focusTarget = findNearest() if not focusTarget then return end
-        end
-        local char = LP.Character
-        local root = char and char:FindFirstChild("HumanoidRootPart")
-        local hum  = char and char:FindFirstChildOfClass("Humanoid")
-        local tr   = focusTarget.Character:FindFirstChild("HumanoidRootPart")
-        local tHum = focusTarget.Character:FindFirstChildOfClass("Humanoid")
-        if not root or not hum or not tr then return end
-        if tHum and tHum.Health <= 0 then focusTarget = findNearest() return end
-        hum.PlatformStand = true
-        angle += dt * speed
-        local offset = Vector3.new(math.cos(angle) * radius, heightOffset, math.sin(angle) * radius)
-        root.CFrame = CFrame.new(tr.Position + offset, tr.Position)
-        root.Velocity = Vector3.zero
-    end)
-end
-
-CriarBotao(mainScroll, "Focus (Player)", function(ativo)
-    focusActive = ativo
-    if ativo then startFocus() else stopFocus() end
-end)
-
--- ==================== ESP ====================
-local espActive = false
-local espFolder = nil
-
-local function IniciarESP()
-    if not espFolder then
-        espFolder = Instance.new("Folder")
-        espFolder.Name = "DinoESP"
-        espFolder.Parent = CoreGui
-    end
-    task.spawn(function()
-        while espActive do
-            espFolder:ClearAllChildren()
-            for _, p in ipairs(Players:GetPlayers()) do
-                if p ~= LP and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
-                    local h = Instance.new("Highlight")
-                    h.Adornee = p.Character
-                    h.FillColor = COR_NEON
-                    h.OutlineColor = Color3.fromRGB(255, 255, 255)
-                    h.FillTransparency = 0.5
-                    h.Parent = espFolder
-                end
+        local stats = char:FindFirstChild("Stats")
+                   or char:FindFirstChild("Values")
+                   or char:FindFirstChild("Data")
+        if stats then
+            for _, name in ipairs({"Kokusen", "BlackFlash", "Chain"}) do
+                local v = stats:FindFirstChild(name)
+                if v then pcall(function() v.Value = true end) end
             end
-            task.wait(1)
         end
-        if espFolder then espFolder:ClearAllChildren() end
     end)
 end
+-- ==================== EXECUTA O COMBO ====================
+local function ExecutarKokusen(alvo)
+    if not alvo or not alvo.Character then return end
 
-CriarBotao(mainScroll, "👁️ ESP (Ver Players)", function(ativo)
-    espActive = ativo
-    if ativo then IniciarESP() else if espFolder then espFolder:ClearAllChildren() end end
-end)
+    local char = LP.Character
+    local root = char and char:FindFirstChild("HumanoidRootPart")
+    local hum  = char and char:FindFirstChildOfClass("Humanoid")
+    if not root or not hum then return end
 
--- ==================== AUTO KOKUSEN (ABA EXTRAS) ====================
-local kokusenActive = false
-local kokusenConn = nil
+    local tRoot = alvo.Character:FindFirstChild("HumanoidRootPart")
+    local tHum  = alvo.Character:FindFirstChildOfClass("Humanoid")
+    if not tRoot or not tHum or tHum.Health <= 0 then return end
 
-CriarBotao(extrasScroll, "🖤 Auto Kokusen (Spam Tool)", function(ativo)
-    kokusenActive = ativo
-    if ativo then
-        kokusenConn = task.spawn(function()
-            while kokusenActive do
-                local char = LP.Character
-                local tool = char and char:FindFirstChildOfClass("Tool")
-                if tool then
-                    pcall(function()
-                        tool:Activate() -- Ativa a ferramenta equipada em loop
-                    end)
-                end
-                task.wait(0.03) -- Velocidade do spam (0.03 = super rápido)
+    local dist = (tRoot.Position - root.Position).Magnitude
+    if dist > kokusenRange then return end
+
+    -- Olha pro alvo
+    root.CFrame = CFrame.new(root.Position, tRoot.Position)
+
+    -- Ativa Kokusen
+    AtivarModoKokusen()
+
+    -- Dispara remotes (se existirem)
+    if not cachedRemotes then
+        cachedRemotes = AcharRemotesKokusen()
+    end
+    for _, r in ipairs(cachedRemotes or {}) do
+        pcall(function()
+            if r:IsA("RemoteEvent") then
+                r:FireServer()
+            elseif r:IsA("RemoteFunction") then
+                r:InvokeServer()
             end
         end)
-    else
-        if kokusenConn then task.cancel(kokusenConn); kokusenConn = nil end
     end
-end)
+
+    -- M1 (click)
+    ClickMouse()
+
+    -- Teclas de skill
+    PressKey(Enum.KeyCode.R)
+    task.wait(0.04)
+    PressKey(Enum.KeyCode.F)
+    task.wait(0.04)
+
+    -- Skills numeradas
+    PressKey(Enum.KeyCode.One)
+    task.wait(0.03)
+    PressKey(Enum.KeyCode.Two)
+end
+
+-- ==================== INICIAR / PARAR ====================
+local function IniciarKokusen()
+    kokusenAtivo = true
+    cachedRemotes = AcharRemotesKokusen()
+
+    loopKokusen = task.spawn(function()
+        while kokusenAtivo do
+            local alvo = AcharAlvo()
+            if alvo then
+                pcall(function() ExecutarKokusen(alvo) end)
+            end
+            task.wait(kokusenDelay)
+        end
+    end)
+
+    print("⚡ Auto Kokusen ATIVADO")
+end
+
+local function PararKokusen()
+    kokusenAtivo = false
+    if loopKokusen then
+        task.cancel(loopKokusen)
+        loopKokusen = nil
+    end
+    print("⚡ Auto Kokusen DESATIVADO")
+end
+-- ==================== BOTÃO PRINCIPAL "EXTRA" ====================
+local btnExtra = Instance.new("TextButton")
+btnExtra.Size = UDim2.new(1, -8, 0, 40)
+btnExtra.BackgroundColor3 = COR_FUNDO_2
+btnExtra.Text = "  ⚡ Extra"
+btnExtra.TextColor3 = Color3.fromRGB(220, 220, 220)
+btnExtra.Font = Enum.Font.GothamMedium
+btnExtra.TextSize = 14
+btnExtra.TextXAlignment = Enum.TextXAlignment.Left
+btnExtra.BorderSizePixel = 0
+btnExtra.AutoButtonColor = false
+btnExtra.Parent = scrollFrame
+
+local ec = Instance.new("UICorner") ec.CornerRadius = UDim.new(0, 10) ec.Parent = btnExtra
+local es = Instance.new("UIStroke") es.Color = COR_NEON es.Thickness = 1 es.Transparency = 0.5 es.Parent = btnExtra
+
+-- ==================== SUBMENU ====================
+local menuAberto, menuExtra = false, nil
+
+local function FecharMenu()
+    if menuExtra then menuExtra:Destroy() menuExtra = nil end
+    menuAberto = false
+end
+
+local function AbrirMenu()
+    if menuAberto then FecharMenu() return end
+    menuAberto = true
+
+    menuExtra = Instance.new("Frame")
+    menuExtra.Size = UDim2.new(0, 320, 0, 260)
+    menuExtra.Position = UDim2.new(0.5, -160, 0.5, -130)
+    menuExtra.BackgroundColor3 = COR_FUNDO
+    menuExtra.BorderSizePixel = 0
+    menuExtra.Active = true
+    menuExtra.Draggable = true
+    menuExtra.Parent = hubGui
+
+    local mc = Instance.new("UICorner") mc.CornerRadius = UDim.new(0, 14) mc.Parent = menuExtra
+    local ms = Instance.new("UIStroke") ms.Color = COR_NEON ms.Thickness = 2 ms.Parent = menuExtra
+
+    -- Título
+    local t = Instance.new("TextLabel")
+    t.Size = UDim2.new(1, 0, 0, 45)
+    t.BackgroundTransparency = 1
+    t.Text = "⚡ Extra"
+    t.TextColor3 = COR_NEON
+    t.Font = Enum.Font.GothamBold
+    t.TextSize = 20
+    t.Parent = menuExtra
+
+    -- Fechar
+    local fechar = Instance.new("TextButton")
+    fechar.Size = UDim2.new(0, 30, 0, 30)
+    fechar.Position = UDim2.new(1, -35, 0, 8)
+    fechar.BackgroundColor3 = Color3.fromRGB(255, 40, 40)
+    fechar.Text = "X"
+    fechar.TextColor3 = Color3.fromRGB(255, 255, 255)
+    fechar.Font = Enum.Font.GothamBold
+    fechar.TextSize = 14
+    fechar.BorderSizePixel = 0
+    fechar.Parent = menuExtra
+    local fc = Instance.new("UICorner") fc.CornerRadius = UDim.new(0, 8) fc.Parent = fechar
+    fechar.MouseButton1Click:Connect(FecharMenu)
+
+    -- ===== BOTÃO AUTO KOKUSEN =====
+    local btnKokusen = Instance.new("TextButton")
+    btnKokusen.Size = UDim2.new(1, -20, 0, 55)
+    btnKokusen.Position = UDim2.new(0, 10, 0, 55)
+    btnKokusen.BackgroundColor3 = kokusenAtivo and COR_NEON or COR_FUNDO_2
+    btnKokusen.Text = kokusenAtivo and "  ● Auto Kokusen: ON" or "  👊 Auto Kokusen: OFF"
+    btnKokusen.TextColor3 = kokusenAtivo and COR_FUNDO or COR_NEON
+    btnKokusen.Font = Enum.Font.GothamBold
+    btnKokusen.TextSize = 15
+    btnKokusen.TextXAlignment = Enum.TextXAlignment.Left
+    btnKokusen.BorderSizePixel = 0
+    btnKokusen.AutoButtonColor = false
+    btnKokusen.Parent = menuExtra
+
+    local kc = Instance.new("UICorner") kc.CornerRadius = UDim.new(0, 10) kc.Parent = btnKokusen
+    local ks = Instance.new("UIStroke") ks.Color = COR_NEON ks.Thickness = 1.5 ks.Transparency = 0.3 ks.Parent = btnKokusen
+
+    btnKokusen.MouseButton1Click:Connect(function()
+        if kokusenAtivo then
+            PararKokusen()
+            btnKokusen.Text = "  👊 Auto Kokusen: OFF"
+            btnKokusen.BackgroundColor3 = COR_FUNDO_2
+            btnKokusen.TextColor3 = COR_NEON
+        else
+            IniciarKokusen()
+            btnKokusen.Text = "  ● Auto Kokusen: ON"
+            btnKokusen.BackgroundColor3 = COR_NEON
+            btnKokusen.TextColor3 = COR_FUNDO
+        end
+    end)
+
+    -- ===== INFO =====
+    local info = Instance.new("TextLabel")
+    info.Size = UDim2.new(1, -20, 0, 130)
+    info.Position = UDim2.new(0, 10, 0, 120)
+    info.BackgroundColor3 = COR_FUNDO_2
+    info.BorderSizePixel = 0
+    info.Text = "👊 AUTO KOKUSEN:\n" ..
+                "• Detecta o alvo mais próximo\n" ..
+                "• Ativa o Kokusen automaticamente\n" ..
+                "• Executa combo de socos\n" ..
+                "• Range: " .. kokusenRange .. " studs"
+    info.TextColor3 = Color3.fromRGB(200, 200, 200)
+    info.Font = Enum.Font.Gotham
+    info.TextSize = 12
+    info.TextXAlignment = Enum.TextXAlignment.Left
+    info.TextYAlignment = Enum.TextYAlignment.Top
+    info.TextWrapped = true
+    info.Parent = menuExtra
+
+    local ic = Instance.new("UICorner") ic.CornerRadius = UDim.new(0, 10) ic.Parent = info
+    local is_ = Instance.new("UIStroke") is_.Color = COR_NEON is_.Thickness = 1 is_.Transparency = 0.6 is_.Parent = info
+
+    local pad = Instance.new("UIPadding")
+    pad.PaddingTop = UDim.new(0, 8)
+    pad.PaddingLeft = UDim.new(0, 8)
+    pad.PaddingRight = UDim.new(0, 8)
+    pad.PaddingBottom = UDim.new(0, 8)
+    pad.Parent = info
+end
+
+btnExtra.MouseButton1Click:Connect(AbrirMenu)
 
 -- ==================== FINALIZAÇÃO ====================
-print("🦖 DINO HUB carregado com sucesso!")
-print("✅ Key: teste")
+print("⚡ Módulo EXTRA carregado com sucesso!")
+print("👊 Auto Kokusen pronto para uso")
